@@ -4,7 +4,6 @@ var TasktagSchema = mongoose.Schema({
 
     name           : String,
     user_id        : mongoose.Schema.Types.ObjectId //User that created this task
-    
 });
 
 //We create a variable accesible outside of this file. Variable will be a mongoose schema with added functions
@@ -22,6 +21,10 @@ module.exports.deleteTag = function(tagId, callback){
 module.exports.getUserTags = function(userId, callback){
   var query = {'user_id': userId}; 
   Tasktag.find(query, callback);
+}
+
+module.exports.getStuff = function(Ids, callback) {
+    Tasktag.find({_id:{$in: Ids}}, callback);
 }
 
 module.exports.tagExists = function(id){

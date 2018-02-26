@@ -14,15 +14,22 @@ class TodoStore extends BaseStore {
   //This establishes what to do when receiving different actions
   _registerToActions(action) {
     switch(action.type){
-      case 'LOAD_TASKS_AND_TAGS':
-        this._tags = action.tags;
+      case 'LOAD_TASKS':
         this._tasks = action.tasks;
+        for (var i = 0; i < this._tasks.length; i++) {
+          this._tags.push([]);
+        }
         this.emitChange(); // Every component using this store can listen to the change
         // this._jwt = action.jwt;
         break;
 
+      case 'LOAD_TAGS':
+        this._tags.splice(action.listIndex, 0, action.tags);
+        this.emitChange();
+        break;
+
       case 'ADD_TAG':
-        this._tags.push(action.newTag);
+        this._tags[action.listIndex].push(action.newTag);
         this.emitChange();
         break;
 
@@ -42,7 +49,7 @@ class TodoStore extends BaseStore {
         break;
 
       case 'DELETE_TAG':
-        this._tags.splice(action.tagIndex, 1);
+        this._tags[listIndex].splice(action.tagIndex, 1);
         this.emitChange();
         break;
 
@@ -63,3 +70,15 @@ class TodoStore extends BaseStore {
 }
 
 export default new TodoStore(); //Export singleton instance
+
+
+
+
+
+
+
+
+
+
+
+

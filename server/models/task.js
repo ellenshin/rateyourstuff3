@@ -1,3 +1,4 @@
+var Tasktag = require('../models/Tasktag');
 var mongoose = require('mongoose');
 
 var TaskSchema = mongoose.Schema({
@@ -29,6 +30,36 @@ module.exports.toggleDone = function(taskId, callback){
     }
     var markedValue = doc.marked_done;
     Task.findByIdAndUpdate(taskId, {marked_done: !markedValue}, callback);
+  });
+ 
+}
+
+module.exports.getTask = function(taskId, callback) {
+  Task.findById(taskId, callback);
+}
+
+module.exports.addStuff = function(taskId, stuffId, callback){
+
+  Task.findById(taskId, function(err, doc){
+    if(err){
+      callback(err);
+    }
+    var markedValue = doc.marked_done;
+    //Task.findByIdAndUpdate(taskId, {marked_done: !markedValue}, callback);
+    Task.findByIdAndUpdate(taskId, {$push: {tags: stuffId}}, callback);
+  });
+ 
+}
+
+module.exports.deleteStuff = function(taskId, stuffId, callback){
+
+  Task.findById(taskId, function(err, doc){
+    if(err){
+      callback(err);
+    }
+    var markedValue = doc.marked_done;
+    //Task.findByIdAndUpdate(taskId, {marked_done: !markedValue}, callback);
+    Task.findByIdAndUpdate(taskId, {$pull: {tags: stuffId}}, callback);
   });
  
 }

@@ -1,57 +1,68 @@
 import React from 'react';
-import Todo from './Todo';
-import NewTodo from './NewTodo';
 
-import TodoStore from '../../stores/TodoStore'
-import TodoActions from '../../actions/TodoActions'
 import TodoService from '../../services/TodoService'
-
-class Todolist extends React.Component {
+import NewTodo from './NewTodo';
+class TodoList extends React.Component {
     
   constructor(props){
     super(props);
-    this.state = {
-      tasks: TodoStore.allTasks,
-      tags: TodoStore.allTags
-    };
 
-    //Expost the todo stores and actions globally for debugging
-    window.TodoStore = TodoStore;
-    window.TodoActions = TodoActions;
-  };
-
+    //Set the initial state of the component
+    this.state = {todos: TodoStore.allTags};
+    this.deleteTodo = this.deleteTodo.bind(this);
+      
+  }
 
   componentDidMount() {
       //Add event listener for change of Todo Store
-      this.todoChange = () => { 
+      this.tagChange = () => { 
         console.log("TASKS IN TODO LIST CHANGED!");
-        this.setState( {tasks: TodoStore.allTasks, tags: TodoStore.allTags}) 
+        this.setState( {todos: TodoStore.allTags}) 
       };
-      TodoStore.addChangeListener(this.todoChange);    
+
+      TodoStore.addChangeListener(this.tagChange);    
 
     //Fetch initial tasks and tags
-    TodoService.fetchTodosAndTasks();
+    TodoService.getStuff(this.props.list._id, this.props.index);
+    //console.log("LOADED??", this.state.todos);
   }
   
   componentWillUnmount() {
     //Add event listener for change of Todo Store
-    TodoStore.removeChangeListener(this.todoChange);
+    TodoStore.removeChangeListener(this.tagChange);
   }
 
 
-  render(){
-    return (
-      <div id="todo-list">
-        {/* Render all todos for this user */}
-        {this.state.tasks.map( function(task, index){
-            return <Todo key={index} index={index} title={task.title} tags={task.tags} markedDone={task.marked_done}/>
-        })}
+  deleteTodo(event) {
+      TodoService.deleteTask(this.props.index);
+  }
 
-        {/* Input field for new todo */}
-        <NewTodo />
-      </div>
-      )
+
+
+    render(){
+
+        return (
+          <div className="todo-list">
+            
+          {/*<div className={!this.props.markedDone ? "todo" : "todo todoisdone"}>*/}
+            {/*<input className="todo-checkbox custom-checkbox" type="checkbox" checked={this.props.markedDone} onClick={this.toggleCheckbox}/>*/}
+            <span className="todo-name"> {this.props.title} </span>
+            <button onClick={this.deleteTodo}>X</button>
+            <NewTodo list={this.props.list} index={this.props.index}/>
+            <ul className="todo-tags">
+              
+              { this.props.todos.map( function(todo, index){
+                {/*return <li key={index} className="badge badge-primary"> {todo} </li>*/}
+                return <li key={index} > {todo.name} </li>
+              })}
+
+            </ul>
+            
+            {/*<button type="button" className="todo-delete close" aria-label="Delete" onClick={this.deleteTodo}> <span aria-hidden="true">&times;</span> </button>*/}
+          </div>
+        )
     }
+
 }
 
-export default Todolist;
+export default TodoList;

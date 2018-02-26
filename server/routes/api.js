@@ -123,8 +123,6 @@ router.post('/task_toggledone', passport.authenticate('jwt', { session: false })
     });
 
 
-
-  
 router.post('/tasktag_getall', passport.authenticate('jwt', { session: false }), function(req,res) {      
   Tasktag.getUserTags(req.user._id, function(err,doc){
     if(err){
@@ -136,6 +134,35 @@ router.post('/tasktag_getall', passport.authenticate('jwt', { session: false }),
     }
     else{
       return res.status(200).json({message: "Tags retrieved succesfully", tags: doc});
+    }
+  });
+});
+  
+router.post('/tags_getbyid', passport.authenticate('jwt', { session: false }), function(req,res) {
+  var list_id = req.body.list_id;
+
+  Task.getTask(list_id, function(err, task){
+    if(err){
+      console.log("Error on task getall = " + err);
+      return res.status(400).json({message: "Unable to get tags", error: err.message});
+    }
+    if(!task){
+      return res.status(400).json({message: "Unable to get tags"});
+    }
+    else{
+      Tasktag.getStuff(task.tags, function(err, tags) {
+        if(err){
+          console.log("Error on task getall = " + err);
+          return res.status(400).json({message: "Unable to get tags", error: err.message});
+        }
+        if(!tags){
+          return res.status(400).json({message: "Unable to get tags"});
+        }
+        else{
+          return res.status(200).json({message: "Tags retrieved succesfully", tags: tags});
+        }
+      })
+      
     }
   });
 });
@@ -153,7 +180,8 @@ router.post('/tasktag_create', passport.authenticate('jwt', { session: false }),
     var tag = new Tasktag();
     tag.user_id = req.user._id;
     tag.name = req.body.name;
-  
+    var list_id = req.body.list_id;
+
     Tasktag.createTag(tag, function(err, tag){
       if(err){
         console.log("err = " + err);
@@ -163,9 +191,26 @@ router.post('/tasktag_create', passport.authenticate('jwt', { session: false }),
         return res.status(400).json({message: "Unable to insert tag in DB"});
       }
       else{
+        console.log("LIST ID IS", req.body.list_id);
+        
+        Task.addStuff(list_id, tag._id, function(err,doc){
+          if(err){
+            console.log("Error on task toggle = " + err);
+            return res.status(400).json({message: "Unable to toggle task in database", error: err.message});
+          }
+          if(!doc){
+            return res.status(400).json({message: "Unable to toggle task in database"});
+          }
+          // else{
+          //   return res.status(200).json({message: "Task toggled succesfully"});
+          // }
+        });
         return res.status(200).json({message: "Tag created succesfully", tag: tag});
+
       }
     });
+
+
 });
 
 router.post('/tasktag_delete', passport.authenticate('jwt', { session: false }), function(req,res) {
@@ -186,7 +231,21 @@ router.post('/tasktag_delete', passport.authenticate('jwt', { session: false }),
         return res.status(400).json({message: "Unable to delete tag in database"});
       }
       else{
+        var list_id = req.body.list_id;
+        Task.deleteStuff(list_id, tag._id, function(err,doc){
+          if(err){
+            console.log("Error on task toggle = " + err);
+            return res.status(400).json({message: "Unable to toggle task in database", error: err.message});
+          }
+          if(!doc){
+            return res.status(400).json({message: "Unable to toggle task in database"});
+          }
+          else{
+            return res.status(200).json({message: "Task toggled succesfully"});
+          }
+        });
         return res.status(200).json({message: "Tag deleted succesfully"});
+        
       }
     });
 });

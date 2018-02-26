@@ -11,7 +11,7 @@ class NewTodo extends React.Component {
       newTodoName: ''
     };
     this.updateNewTodoName = this.updateNewTodoName.bind(this);    
-    this.createTodo = this.createTodo.bind(this);      
+    this.createStuff = this.createStuff.bind(this);      
   }
 
   updateNewTodoName(event){
@@ -20,10 +20,11 @@ class NewTodo extends React.Component {
   }
 
 
-  createTodo(event) {
+  createStuff(event) {
     //TODO: Add form validation
     event.preventDefault();
-    TodoService.createTask(this.state.newTodoName);
+    //console.log("PARAMS", this.state.newTodoName, this.props.list._id, this.props.index);
+    TodoService.createTag(this.state.newTodoName, this.props.list._id, this.props.index);
     this.setState( { newTodoName: '' });
   }
 
@@ -33,9 +34,10 @@ class NewTodo extends React.Component {
     
     <div className="newtodo col-md-6">
 
-      <form onChange={this.updateNewTodoName} onSubmit={this.createTodo}>
+      <form onChange={this.updateNewTodoName} onSubmit={this.createStuff}>
         <div className="input-group">
-          <input id="new_todo_name" type="text" className="newtodo-input form-control" value={this.state.newTodoName} placeholder="New todo..." aria-label="New todo..."/>
+          {/*<input id="new_todo_name" type="text" className="newtodo-input form-control" value={this.state.newTodoName} placeholder="New stuff..." aria-label="New stuff..."/>*/}
+          <input type="text" value={this.state.newTodoName} placeholder="New stuff..." aria-label="New stuff..."/>
           <span className="input-group-btn">
             <button className="newtodo-button btn btn-outline-primary" type="submit"> + </button>
           </span>

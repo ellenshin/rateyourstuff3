@@ -139,7 +139,18 @@ background: #E74B37;
   margin-right: 10px;
 }
 
-
+.todo-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  border:1px solid black;
+  margin: 20px 20px 20px 20px;
+  padding-top: 20px;
+  width:270px;
+  display: inline-block;
+    float: left;
+    align-items: center;
+}
 /* New todo */
 
 .newtodo {

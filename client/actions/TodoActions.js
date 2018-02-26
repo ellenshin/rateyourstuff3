@@ -2,19 +2,26 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 
 export default {
 
-  loadTasksAndTags: (tags, tasks) => {
+  loadTasks: (tasks) => {
     AppDispatcher.dispatch({
-      type: 'LOAD_TASKS_AND_TAGS',
-      tags: tags,
+      type: 'LOAD_TASKS',
       tasks: tasks
     });
   },
 
+  loadTags: (tags, listIndex) => {
+    AppDispatcher.dispatch({
+      type: 'LOAD_TAGS',
+      tags: tags,
+      listIndex: listIndex
+    });
+  },
 
-  addTag: (newTag) => {
+  addTag: (newTag, listIndex) => {
     AppDispatcher.dispatch({
       type: 'ADD_TAG',
-      newTag: newTag
+      newTag: newTag,
+      listIndex: listIndex
     });
   },
 
@@ -39,10 +46,11 @@ export default {
     });
   },
 
-  deleteTag: (tagIndex) => {
+  deleteTag: (tagIndex, listIndex) => {
     AppDispatcher.dispatch({
       type: 'DELETE_TAG',
-      tagIndex: tagIndex
+      tagIndex: tagIndex,
+      listIndex: listIndex
     });
   },
     

@@ -1,7 +1,7 @@
 var Constants = {
 
   //Text
-  PAGE_TITLE: "World's Best Todo App",
+  PAGE_TITLE: "RateYourStuff",
 
   //Timeouts
   ALERT_MESSAGE_TIMEOUT: 10000, //Set to 10 thousand miliseconds
@@ -26,10 +26,10 @@ var Constants = {
   API_TASKS_TOGGLEDONE: '/api/task_toggledone',
   API_TASKS_DELETE: '/api/task_delete',
 
+  API_TAGS_GETBYID: 'api/tags_getbyid',
   API_TAGS_GETALL: '/api/tasktag_getall',
   API_TAGS_CREATE: '/api/tasktag_create',
   API_TAGS_DELETE: '/api/tasktag_delete',
-
 }  
 
 export default Constants;

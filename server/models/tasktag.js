@@ -11,7 +11,8 @@ var Tasktag = module.exports = mongoose.model('Tasktag', TasktagSchema);
 
 
 module.exports.createTag = function(newTag, callback){
-  newTag.save(callback);
+  Tasktag.create(newTag, callback);
+  //newTag.save(callback);
 }
 
 module.exports.deleteTag = function(tagId, callback){
@@ -24,7 +25,11 @@ module.exports.getUserTags = function(userId, callback){
 }
 
 module.exports.getStuff = function(Ids, callback) {
-    Tasktag.find({_id:{$in: Ids}}, callback);
+  Tasktag.find({_id:{$in: Ids}}, callback);
+}
+
+module.exports.deleteTagsInList = function(Ids, callback) {
+  Tasktag.remove({_id:{$in: Ids}}, callback);
 }
 
 module.exports.tagExists = function(id){

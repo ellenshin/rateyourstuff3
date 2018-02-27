@@ -90,19 +90,29 @@ router.post('/task_toggledone', passport.authenticate('jwt', { session: false })
         return res.status(400).json({ message: 'Unable to delete task with this ID', errors: req.validationErrors() });        
       };
       
-      //Toggle task in DB
-      Task.deleteTask(req.body.id,function(err,doc){
+      Tasktag.deleteTagsInList(req.body.tags, function(err, doc){
         if(err){
           console.log("Error on task delete = " + err);
-          return res.status(400).json({message: "Unable to delete task in database", error: err.message});
+          return res.status(400).json({message: "1Unable to delete task in database", error: err.message});
         }
         if(!doc){
-          return res.status(400).json({message: "Unable to delete task in database"});
+          return res.status(400).json({message: "2Unable to delete task in database"});
         }
-        else{
-          return res.status(200).json({message: "Task deleted succesfully"});
-        }
+
+        Task.deleteTask(req.body.id,function(err,doc){
+          if(err){
+            console.log("Error on task delete = " + err);
+            return res.status(400).json({message: "3Unable to delete task in database", error: err.message});
+          }
+          if(!doc){
+            return res.status(400).json({message: "4Unable to delete task in database"});
+          }
+          else{
+            return res.status(200).json({message: "Task deleted succesfully"});
+          }
       });
+      })
+
     });
   
     router.post('/task_getall', passport.authenticate('jwt', { session: false }), function(req,res) {
@@ -201,9 +211,6 @@ router.post('/tasktag_create', passport.authenticate('jwt', { session: false }),
           if(!doc){
             return res.status(400).json({message: "Unable to toggle task in database"});
           }
-          // else{
-          //   return res.status(200).json({message: "Task toggled succesfully"});
-          // }
         });
         return res.status(200).json({message: "Tag created succesfully", tag: tag});
 
@@ -214,15 +221,8 @@ router.post('/tasktag_create', passport.authenticate('jwt', { session: false }),
 });
 
 router.post('/tasktag_delete', passport.authenticate('jwt', { session: false }), function(req,res) {
-  
-    //Error checking
-    req.checkBody('id','Tag ID was not provided').isEmpty();
-    if(req.validationErrors()){
-      return res.status(400).json({ message: 'Unable to delete tag with this name', errors: req.validationErrors() });        
-    };
     
-    //Toggle task in DB
-    Tasktag.deleteTask(req.body.id,function(err,doc){
+    Tasktag.deleteTag(req.body.id, function(err,doc){
       if(err){
         console.log("Error on tag delete = " + err);
         return res.status(400).json({message: "Unable to delete tag in database", error: err.message});
@@ -232,16 +232,13 @@ router.post('/tasktag_delete', passport.authenticate('jwt', { session: false }),
       }
       else{
         var list_id = req.body.list_id;
-        Task.deleteStuff(list_id, tag._id, function(err,doc){
+        Task.deleteStuff(list_id, req.body.id, function(err,doc){
           if(err){
             console.log("Error on task toggle = " + err);
             return res.status(400).json({message: "Unable to toggle task in database", error: err.message});
           }
           if(!doc){
             return res.status(400).json({message: "Unable to toggle task in database"});
-          }
-          else{
-            return res.status(200).json({message: "Task toggled succesfully"});
           }
         });
         return res.status(200).json({message: "Tag deleted succesfully"});

@@ -49,7 +49,7 @@ class TodoStore extends BaseStore {
         break;
 
       case 'DELETE_TAG':
-        this._tags[listIndex].splice(action.tagIndex, 1);
+        this._tags[action.listIndex].splice(action.tagIndex, 1);
         this.emitChange();
         break;
 

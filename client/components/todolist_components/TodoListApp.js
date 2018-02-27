@@ -29,7 +29,9 @@ class TodoListApp extends React.Component {
       TodoStore.addChangeListener(this.todoChange);    
 
     //Fetch initial tasks and tags
-    TodoService.getTasks();
+    TodoService.fetchTasks();
+    //TodoService.fetchStuff();
+    console.log(this.state.todos);
   }
   
   componentWillUnmount() {

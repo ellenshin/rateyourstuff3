@@ -16,7 +16,8 @@ var Task = module.exports = mongoose.model('Task', TaskSchema);
 
 
 module.exports.createTask = function(newTask, callback){
-  newTask.save(callback);
+  Task.create(newTask, callback);
+  //newTask.save(callback);
 }
 module.exports.deleteTask = function(taskId, callback){
   Task.findByIdAndRemove(taskId, callback);

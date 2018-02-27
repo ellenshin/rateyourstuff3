@@ -9,7 +9,7 @@ import LoginStore from '../stores/LoginStore'
 
 class TodoService {
   
-  getTasks() {
+  fetchTasks() {
     
     var tasks = false;
     var tags = false;
@@ -32,7 +32,7 @@ class TodoService {
     });
   }
 
-  getStuff(list_id, index) {
+  fetchStuff(list_id, index) {
     request
     .post(Constants.API_TAGS_GETBYID)
     .send({"Authorization":LoginStore._jwt, "list_id":list_id})
@@ -45,6 +45,7 @@ class TodoService {
         else{
           //TodoActions.loadTasksAndTags(tags,tasks);
           var tags = res.body.tags;
+          console.log("TAGS FROM FETCH", tags);
           TodoActions.loadTags(tags, index);
           //return res.body.tags;
           //We obtain tasks. Now do a chain request to obtain tags
@@ -101,9 +102,10 @@ class TodoService {
     }
 
 
+    console.log("TAGS", TodoStore.allTags[taskIndex]);
     request
     .post(Constants.API_TASKS_DELETE)
-    .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTasks[taskIndex]._id})
+    .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTasks[taskIndex]._id, "tags":TodoStore.allTags[taskIndex]})
     .end( (err, res) => {
         if(err || !res.ok){
             if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
@@ -113,6 +115,30 @@ class TodoService {
         else{
           //We delete the task in the Todo Store
           TodoActions.deleteTask(taskIndex);
+        }
+      });
+  }
+
+  deleteTag(tag_index, tag_id, list_id, list_index) {
+    if(tag_index<0 || tag_index>=TodoStore.allTags[list_index].length){
+      AlertActions.displayMessage("error","Invalid task index");
+      return;
+    }
+
+    console.log("ID", TodoStore.allTags[list_index][tag_index]._id);
+    request
+    .post(Constants.API_TAGS_DELETE)
+    .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTags[list_index][tag_index]._id, "list_id":list_id})
+    .end( (err, res) => {
+        if(err || !res.ok){
+            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            else{ AlertActions.displayMessage('error', 'Can not delete tag at this time. Server might be down.');}
+            return;
+        }
+        else{
+          //We delete the task in the Todo Store
+          AlertActions.displayMessage('success', 'Task deleted');
+          TodoActions.deleteTag(tag_index, list_index);
         }
       });
   }
@@ -134,28 +160,7 @@ class TodoService {
       });
   }
 
-  deleteTag(tagIndex, list_id, list_index) {
-    if(tagIndex<0 || tagIndex>=TodoStore.allTags.length){
-      AlertActions.displayMessage("error","Invalid task index");
-      return;
-    }
-
-    request
-    .post(Constants.API_TAGS_DELETE)
-    .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTags[tagIndex]._id, "list_id":list_id})
-    .end( (err, res) => {
-        if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not delete tag at this time. Server might be down.');}
-            return;
-        }
-        else{
-          //We delete the task in the Todo Store
-          AlertActions.displayMessage('success', 'Task deleted');
-          TodoActions.deleteTag(tagIndex, list_index);
-        }
-      });
-  }
+  
 
 }
 

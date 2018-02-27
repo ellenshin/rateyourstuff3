@@ -1,16 +1,22 @@
 import React from 'react';
-
+import TodoItem from './TodoItem';
 import TodoService from '../../services/TodoService'
 import NewTodo from './NewTodo';
+
 class TodoList extends React.Component {
     
   constructor(props){
     super(props);
 
     //Set the initial state of the component
-    this.state = {todos: TodoStore.allTags};
-    this.deleteTodo = this.deleteTodo.bind(this);
+    this.state = {todos: []};
+    this.deleteList = this.deleteList.bind(this);
       
+  }
+
+  componentWillMount() {
+    TodoService.fetchStuff(this.props.list._id, this.props.index);
+    this.setState( {todos: TodoStore.allTags});
   }
 
   componentDidMount() {
@@ -23,7 +29,6 @@ class TodoList extends React.Component {
       TodoStore.addChangeListener(this.tagChange);    
 
     //Fetch initial tasks and tags
-    TodoService.getStuff(this.props.list._id, this.props.index);
     //console.log("LOADED??", this.state.todos);
   }
   
@@ -33,27 +38,30 @@ class TodoList extends React.Component {
   }
 
 
-  deleteTodo(event) {
-      TodoService.deleteTask(this.props.index);
+  deleteList(event) {
+    event.preventDefault();
+    TodoService.deleteTask(this.props.index);
   }
 
-
-
     render(){
-
+        var array = this.state.todos;
+        var stuff = array[this.props.index];
+        console.log("ARRAY", array, stuff);
+        var list_index = this.props.index;
+        var list_id = this.props.list._id;
         return (
+          
           <div className="todo-list">
             
           {/*<div className={!this.props.markedDone ? "todo" : "todo todoisdone"}>*/}
             {/*<input className="todo-checkbox custom-checkbox" type="checkbox" checked={this.props.markedDone} onClick={this.toggleCheckbox}/>*/}
             <span className="todo-name"> {this.props.title} </span>
-            <button onClick={this.deleteTodo}>X</button>
+            <button onClick={this.deleteList}>X</button>
             <NewTodo list={this.props.list} index={this.props.index}/>
             <ul className="todo-tags">
               
-              { this.props.todos.map( function(todo, index){
-                {/*return <li key={index} className="badge badge-primary"> {todo} </li>*/}
-                return <li key={index} > {todo.name} </li>
+              { stuff.map( function(todo, index){
+                return <TodoItem key={todo._id} todo={todo} index={index} list_index={list_index} list_id={list_id}/>
               })}
 
             </ul>

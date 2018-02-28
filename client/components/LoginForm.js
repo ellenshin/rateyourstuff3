@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
         
           <p className="login-form-errors">{errors.main}</p>
 
-          <form action="/" onSubmit={onSubmit}>
+          <form action="/todos" onSubmit={onSubmit}>
             
 
             <LoginTextInput 

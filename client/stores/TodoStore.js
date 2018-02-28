@@ -47,6 +47,7 @@ class TodoStore extends BaseStore {
       
       case 'DELETE_TASK':
         this._tasks.splice(action.taskIndex, 1);
+        this._tags.splice(action.taskIndex, 1);
         this.emitChange();
         break;
 

@@ -30,7 +30,7 @@ class TodoItem extends React.Component {
         return (
           <div>
             <li key={this.props.index} > {this.props.todo.name}   
-            <button onClick={this.deleteTodo}>X</button></li>
+            <button className=".btn-default" onClick={this.deleteTodo}>X</button></li>
             
           </div>
         )

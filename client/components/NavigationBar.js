@@ -28,12 +28,15 @@ class NavigationBar extends React.Component {
         else {
             navBarContent = (
                 <ul className="navbar-nav mr-auto navbar-right">
+                    {/*
                     <li className="nav-item">
                         <NavLink exact to="/" className="nav-link" activeClassName="active">Home</NavLink>
                     </li>
+                
                     <li className="nav-item">
                         <NavLink to="/todos" className="nav-link" activeClassName="active">Todos</NavLink>
                     </li>
+                    */}
                     <li className="nav-item">
                         <NavLink to="/logout" className="nav-link" activeClassName="active">Logout</NavLink>
                     </li>
@@ -44,7 +47,7 @@ class NavigationBar extends React.Component {
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-primary">
             
-            <NavLink to="/" className="navbar-brand" >{this.props.pageTitle}</NavLink>
+            <NavLink to="/todos" className="navbar-brand" >{this.props.pageTitle}</NavLink>
             
             <div className="container-fluid">
                 {navBarContent}

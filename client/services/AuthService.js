@@ -34,8 +34,8 @@ class AuthService {
         }
         else{
           LoginActions.loginUser(res.body.token);
-          history.push('/');
-          AlertActions.displayMessage('success', res.body.message);
+          history.push('/todos');
+          //AlertActions.displayMessage('success', res.body.message);
         }
     });            
   }

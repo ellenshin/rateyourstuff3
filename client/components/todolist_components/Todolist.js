@@ -54,12 +54,12 @@ class TodoList extends React.Component {
         var list_id = this.props.list._id;
         return (
           
-          <div className="todo-list">
+          <div className="todo-list rounded">
             
           {/*<div className={!this.props.markedDone ? "todo" : "todo todoisdone"}>*/}
             {/*<input className="todo-checkbox custom-checkbox" type="checkbox" checked={this.props.markedDone} onClick={this.toggleCheckbox}/>*/}
             <span className="todo-name"> {this.props.title} </span>
-            <button onClick={this.deleteList}>X</button>
+            <button className = ".btn-default" onClick={this.deleteList}>X</button>
             <NewTodo list={this.props.list} index={this.props.index}/>
             <ul className="todo-tags">
               

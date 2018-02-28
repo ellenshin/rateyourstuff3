@@ -16,15 +16,16 @@ class TodoStore extends BaseStore {
     switch(action.type){
       case 'LOAD_TASKS':
         this._tasks = action.tasks;
-        for (var i = 0; i < this._tasks.length; i++) {
-          this._tags.push([]);
-        }
+        // for (var i = 0; i < this._tasks.length; i++) {
+        //   this._tags.push([]);
+        // }
         this.emitChange(); // Every component using this store can listen to the change
         // this._jwt = action.jwt;
         break;
 
       case 'LOAD_TAGS':
-        this._tags.splice(action.listIndex, 0, action.tags);
+        this._tags[action.listIndex] = action.tags;
+        //this._tags.splice(action.listIndex, 0, action.tags);
         this.emitChange();
         break;
 
@@ -35,6 +36,7 @@ class TodoStore extends BaseStore {
 
       case 'ADD_TASK':
         this._tasks.push(action.newTask);
+        //this._tags.push([]);
         this.emitChange();
         break;
 
@@ -53,6 +55,9 @@ class TodoStore extends BaseStore {
         this.emitChange();
         break;
 
+      case 'EMPTY_OUT':
+        this._tags = [];
+        this._tasks = [];
       default:
         break;
     }

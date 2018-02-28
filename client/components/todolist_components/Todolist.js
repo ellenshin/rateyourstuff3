@@ -9,15 +9,15 @@ class TodoList extends React.Component {
     super(props);
 
     //Set the initial state of the component
-    this.state = {todos: []};
+    this.state = {todos: TodoStore.allTags};
     this.deleteList = this.deleteList.bind(this);
       
   }
 
-  componentWillMount() {
-    TodoService.fetchStuff(this.props.list._id, this.props.index);
-    this.setState( {todos: TodoStore.allTags});
-  }
+  // componentWillMount() {
+  //   TodoService.fetchStuff(this.props.list._id, this.props.index);
+  //   this.setState( {todos: TodoStore.allTags});
+  // }
 
   componentDidMount() {
       //Add event listener for change of Todo Store
@@ -27,7 +27,7 @@ class TodoList extends React.Component {
       };
 
       TodoStore.addChangeListener(this.tagChange);    
-
+      TodoService.fetchStuff(this.props.list._id, this.props.index);
     //Fetch initial tasks and tags
     //console.log("LOADED??", this.state.todos);
   }
@@ -46,6 +46,9 @@ class TodoList extends React.Component {
     render(){
         var array = this.state.todos;
         var stuff = array[this.props.index];
+        if (stuff === undefined) {
+          var stuff = [];
+        }
         console.log("ARRAY", array, stuff);
         var list_index = this.props.index;
         var list_id = this.props.list._id;

@@ -53,7 +53,12 @@ export default {
       listIndex: listIndex
     });
   },
-    
+  
+  emptyOut: () => {
+    AppDispatcher.dispatch({
+      type: 'EMPTY_OUT'
+    });
+  }
       
       
 }

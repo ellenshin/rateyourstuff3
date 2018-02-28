@@ -6,7 +6,7 @@ import Constants from '../constants'
 import AlertActions from  '../actions/AlertActions';
 import LoginActions from '../actions/LoginActions';
 import LoginStore from '../stores/LoginStore';
-
+import TodoActions from '../actions/TodoActions';
 
 class AuthService {
   
@@ -108,6 +108,7 @@ class AuthService {
     
   }
   logout() {
+    TodoActions.emptyOut();
     LoginActions.logoutUser();
   }
 

@@ -30,6 +30,7 @@ var Constants = {
   API_TAGS_GETALL: '/api/tasktag_getall',
   API_TAGS_CREATE: '/api/tasktag_create',
   API_TAGS_DELETE: '/api/tasktag_delete',
+  API_TAG_NEWRATING: 'api/tag_newrating'
 }  
 
 export default Constants;

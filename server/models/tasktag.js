@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var TasktagSchema = mongoose.Schema({
 
     name           : String,
+    rating         : { type: Number, default: 0 },
     user_id        : mongoose.Schema.Types.ObjectId //User that created this task
 });
 
@@ -13,6 +14,10 @@ var Tasktag = module.exports = mongoose.model('Tasktag', TasktagSchema);
 module.exports.createTag = function(newTag, callback){
   Tasktag.create(newTag, callback);
   //newTag.save(callback);
+}
+
+module.exports.updateRating = function(id, newRating, callback) {
+  Tasktag.findByIdAndUpdate(id, {rating: newRating}, callback);
 }
 
 module.exports.deleteTag = function(tagId, callback){

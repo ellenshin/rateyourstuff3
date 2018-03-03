@@ -53,26 +53,20 @@ class TodoService {
     });
   }
 
-  toggleTask(taskIndex) {
-
-    if(taskIndex<0 || taskIndex>=TodoStore._tasks.length){
-      AlertActions.displayMessage("error","Invalid task index");
-      return;
-    }
-
+  updateRating(id, newRating){
     request
-    .post(Constants.API_TASKS_TOGGLEDONE)
-    .send({"Authorization":LoginStore._jwt, "id":TodoStore._tasks[taskIndex]._id})
+    .post(Constants.API_TAG_NEWRATING)
+    .send({"Authorization":LoginStore._jwt, "id":id, "newRating": newRating})
     .end( (err, res) => {
         if(err || !res.ok){
             if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
             else{ AlertActions.displayMessage('error', 'Can not toggle todo at this time. Server might be down.');}
             return;
         }
-        else{
-          //We toggle task in the store
-          TodoActions.toggleTask(taskIndex);
-        }
+        // else{
+        //   //We toggle task in the store
+        //   TodoActions.toggleTask(taskIndex);
+        // }
       });
   }
 

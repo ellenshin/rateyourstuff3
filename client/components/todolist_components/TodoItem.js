@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoService from '../../services/TodoService'
+import ReactStars from 'react-stars'
 
 class TodoItem extends React.Component {
     
@@ -8,7 +9,7 @@ class TodoItem extends React.Component {
 
     //Set the initial state of the component
     this.deleteTodo = this.deleteTodo.bind(this);
-      
+    this.ratingChanged = this.ratingChanged.bind(this);
   }
 
 
@@ -19,18 +20,25 @@ class TodoItem extends React.Component {
       this.props.todo._id,
       this.props.list_id,
       this.props.list_index);
-    
-    console.log(this.props.index,
+  }
+
+  ratingChanged(newRating) {
+    TodoService.updateRating(
       this.props.todo._id,
-      this.props.list_id,
-      this.props.list_index)
+      newRating);
+    //TodoService.fetchStuff(this.props.list_id, this.props.list_index);
   }
 
     render(){
         return (
           <div>
-            <li key={this.props.index} > {this.props.todo.name}   
-            <button className=".btn-default" onClick={this.deleteTodo}>X</button></li>
+            <li key={this.props.index} > 
+            <span>{this.props.todo.name} <span className="delete-btn" onClick={this.deleteTodo}>X</span></span>
+            <span className="rating-stars">
+            <ReactStars value={this.props.todo.rating} count={5} onChange={this.ratingChanged} size={24} color2={'#ffd700'} /> 
+            </span>
+            <hr></hr>
+            </li>
             
           </div>
         )

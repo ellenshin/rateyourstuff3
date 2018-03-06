@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoList from './TodoList';
+import TodoList from './Todolist';
 import NewTodoList from './NewTodoList';
 
 import TodoStore from '../../stores/TodoStore'

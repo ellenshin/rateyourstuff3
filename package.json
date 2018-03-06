@@ -1,22 +1,20 @@
 {
-  "name": "todo-react-app",
+  "name": "rateyourstuff",
   "version": "1.0.0",
-  "description": "Web app I made for me to learn React + Flux",
   "main": "server.js",
   "scripts": {
     "test:lint": "eslint server/ client/",
     "test": "npm run test:lint",
-    "start": "npm run build && node server/server-es5.js",
+    // "start": "npm run build && node server/server-es5.js",
     "start:universal": "export UNIVERSAL=true && npm run start",
     "start:dev": "export NODE_ENV=development && nodemon server/server.js",
     "start:dev:universal": "export NODE_ENV=development && export UNIVERSAL=true && npm run start:dev",
-    "build": "NODE_ENV=production webpack -p --profile --display-modules --optimize-minimize",
+    // "build": "NODE_ENV=production webpack -p --profile --display-modules --optimize-minimize",
     "build:dev": "webpack -d",
     "build:dev:watch": "webpack -d --watch",
     "heroku-prebuild": "npm install --dev"
   },
-  "author": "Ed Nunez",
-  "license": "MIT",
+  "author": "Ellen Shin",
   "dependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",

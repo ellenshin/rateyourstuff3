@@ -1,7 +1,7 @@
 var APP_CONFIG = require('../app-config.js');
-var User = require('../models/User');
-var Task = require('../models/Task');
-var Tasktag = require('../models/Tasktag');
+var User = require('../models/user');
+var Task = require('../models/task');
+var Tasktag = require('../models/tasktag');
 var request = require('superagent');
 
 //Middleware

@@ -1,4 +1,4 @@
-var Tasktag = require('../models/Tasktag');
+var Tasktag = require('../models/tasktag');
 var mongoose = require('mongoose');
 
 var TaskSchema = mongoose.Schema({

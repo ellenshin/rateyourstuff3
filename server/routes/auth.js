@@ -1,5 +1,5 @@
 var APP_CONFIG = require('../app-config.js');
-var User = require('../models/User');
+var User = require('../models/user');
 var request = require('superagent');
 
 //Middleware

@@ -53,7 +53,7 @@ class TodoService {
     });
   }
 
-  updateRating(id, newRating){
+  updateRating(tag_index, list_index, id, newRating){
     request
     .post(Constants.API_TAG_NEWRATING)
     .send({"Authorization":LoginStore._jwt, "id":id, "newRating": newRating})
@@ -63,10 +63,10 @@ class TodoService {
             else{ AlertActions.displayMessage('error', 'Can not toggle todo at this time. Server might be down.');}
             return;
         }
-        // else{
-        //   //We toggle task in the store
-        //   TodoActions.toggleTask(taskIndex);
-        // }
+        else{
+          //We toggle task in the store
+          TodoActions.updateTag(tag_index, list_index, newRating);
+        }
       });
   }
 

@@ -56,6 +56,11 @@ class TodoStore extends BaseStore {
         this.emitChange();
         break;
 
+      case 'UPDATE_TAG':
+        this._tags[action.listIndex][action.tagIndex].rating = action.newRating;
+        this.emitChange();
+        break;
+
       case 'EMPTY_OUT':
         this._tags = [];
         this._tasks = [];

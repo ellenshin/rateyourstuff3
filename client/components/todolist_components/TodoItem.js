@@ -24,6 +24,8 @@ class TodoItem extends React.Component {
 
   ratingChanged(newRating) {
     TodoService.updateRating(
+      this.props.index,
+      this.props.list_index,
       this.props.todo._id,
       newRating);
     //TodoService.fetchStuff(this.props.list_id, this.props.list_index);

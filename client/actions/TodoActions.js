@@ -39,6 +39,15 @@ export default {
     });
   },
 
+  updateTag: (tag_index, list_index, newRating) => {
+    AppDispatcher.dispatch({
+      type: 'UPDATE_TAG',
+      listIndex: list_index,
+      tagIndex: tag_index,
+      newRating: newRating
+    });
+  },
+
   deleteTask: (taskIndex) => {
     AppDispatcher.dispatch({
       type: 'DELETE_TASK',

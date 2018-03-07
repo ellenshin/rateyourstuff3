@@ -33,16 +33,15 @@ class TodoItem extends React.Component {
 
     render(){
         return (
-          <div>
+          
             <li key={this.props.index} > 
-            <span>{this.props.todo.name} <span className="delete-btn" onClick={this.deleteTodo}>X</span></span>
-            <span className="rating-stars">
+            <div className="list-name">{this.props.todo.name} <span className="delete-btn" onClick={this.deleteTodo}>X</span></div>
+            <div className="rating-stars">
             <ReactStars value={this.props.todo.rating} count={5} onChange={this.ratingChanged} size={24} color2={'#ffd700'} /> 
-            </span>
-            <hr></hr>
+            </div>
             </li>
             
-          </div>
+          
         )
     }
 

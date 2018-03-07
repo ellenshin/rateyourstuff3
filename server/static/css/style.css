@@ -85,7 +85,6 @@ background: #E74B37;
 
 /* Todo element */
 .todo {
-  padding: 20px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: #dddddd;
@@ -149,8 +148,14 @@ background: #E74B37;
   margin-right: 10px;
 }
 
+/* list name padding left */
+.list-name {
+  padding-left: 5%;
+}
+
+/* star padding left */
 .rating-stars {
-  
+    padding-left: 59%;
 }
 .delete-btn {
   float:right;
@@ -162,7 +167,6 @@ background: #E74B37;
   border:3px solid pink;
   background-color: #FFFFFF; 
   margin: 20px 20px 20px 20px;
-  padding-top: 20px;
   width:270px;
   display: inline-block;
     float: left;
@@ -172,6 +176,30 @@ background: #E74B37;
 .delete-btn {
   color: red;
 }
+
+.delete-list-btn {
+  color: red;
+  padding-top: 5%;
+  margin-left: 93%;
+}
+
 .newtodo {
   padding: 10px;
+}
+
+@media (min-width: 768px)
+.container {
+    max-width: 100%;
+}
+
+.container {
+    width: 100%;
+}
+
+.todo-name {
+  font-size: 20px;
+  font-weight:700;
+  font-family:helvetica;
+  color:black;
+  text-align: center;
 }

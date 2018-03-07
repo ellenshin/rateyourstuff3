@@ -58,8 +58,9 @@ class TodoList extends React.Component {
             
           {/*<div className={!this.props.markedDone ? "todo" : "todo todoisdone"}>*/}
             {/*<input className="todo-checkbox custom-checkbox" type="checkbox" checked={this.props.markedDone} onClick={this.toggleCheckbox}/>*/}
-            <span className="todo-name"> {this.props.title} </span>
-            <button className = "btn-default" onClick={this.deleteList}>X</button>
+            <div className = "delete-list-btn" onClick={this.deleteList}>X</div>
+            <div className="todo-name"> {this.props.title} </div>
+            
             <NewTodo list={this.props.list} index={this.props.index}/>
             <hr className="style1"></hr>
             <ul className="todo-tags">

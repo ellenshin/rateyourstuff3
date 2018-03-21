@@ -51,7 +51,7 @@ router.post('/task_create', passport.authenticate('jwt', { session: false }), fu
       return res.status(400).json({message: "Unable to insert task in DB"});
     }
     else{
-      return res.status(200).json({message: "Task created succesfully" , task: task});
+      return res.status(200).json({message: "List created succesfully" , task: task});
     }
   });
 });
@@ -108,7 +108,7 @@ router.post('/task_toggledone', passport.authenticate('jwt', { session: false })
             return res.status(400).json({message: "4Unable to delete task in database"});
           }
           else{
-            return res.status(200).json({message: "Task deleted succesfully"});
+            return res.status(200).json({message: "List deleted succesfully"});
           }
       });
       })

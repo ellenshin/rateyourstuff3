@@ -131,7 +131,7 @@ class TodoService {
         }
         else{
           //We delete the task in the Todo Store
-          AlertActions.displayMessage('success', 'Task deleted');
+          //AlertActions.displayMessage('success', 'Task deleted');
           TodoActions.deleteTag(tag_index, list_index);
         }
       });

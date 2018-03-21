@@ -19,6 +19,10 @@ class TodoList extends React.Component {
   //   this.setState( {todos: TodoStore.allTags});
   // }
 
+scrollToBottom() {
+  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+}
+
   componentDidMount() {
       //Add event listener for change of Todo Store
       this.tagChange = () => { 
@@ -37,6 +41,10 @@ class TodoList extends React.Component {
     TodoStore.removeChangeListener(this.tagChange);
   }
 
+
+componentDidUpdate() {
+  this.scrollToBottom();
+}
 
   deleteList(event) {
     event.preventDefault();
@@ -61,7 +69,7 @@ class TodoList extends React.Component {
             <div className = "delete-list-btn" onClick={this.deleteList}>X</div>
             <div className="todo-name"> {this.props.title} </div>
             
-            <NewTodo list={this.props.list} index={this.props.index}/>
+            
             <hr className="style1"></hr>
             <ul className="todo-tags">
               
@@ -70,7 +78,10 @@ class TodoList extends React.Component {
               })}
 
             </ul>
-            
+            <NewTodo list={this.props.list} index={this.props.index}/>
+            <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+            </div>
             {/*<button type="button" className="todo-delete close" aria-label="Delete" onClick={this.deleteTodo}> <span aria-hidden="true">&times;</span> </button>*/}
           </div>
         )

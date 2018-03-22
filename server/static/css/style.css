@@ -134,6 +134,7 @@ background: #E74B37;
   /*margin-right: 5px;*/
   font-size: 14px;
   background: #fff;
+  word-wrap:break-word;
 
 }
 
@@ -176,12 +177,14 @@ background: #E74B37;
 .delete-btn {
   color: red;
   margin-right: 4%;
+  cursor:pointer;
 }
 
 .delete-list-btn {
   color: red;
   padding-top: 5%;
   margin-left: 93%;
+  cursor:pointer;
 }
 
 .newtodo {
@@ -203,4 +206,11 @@ background: #E74B37;
   font-family:helvetica;
   color:black;
   text-align: center;
+  word-wrap:break-word;
+  display: block;
 }
+
+
+
+
+

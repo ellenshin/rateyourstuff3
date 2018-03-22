@@ -2,6 +2,7 @@ import React from 'react';
 import TodoItem from './TodoItem';
 import TodoService from '../../services/TodoService'
 import NewTodo from './NewTodo';
+import EditableLabel from 'react-edit-inline';
 
 class TodoList extends React.Component {
     
@@ -14,14 +15,9 @@ class TodoList extends React.Component {
       
   }
 
-  // componentWillMount() {
-  //   TodoService.fetchStuff(this.props.list._id, this.props.index);
-  //   this.setState( {todos: TodoStore.allTags});
-  // }
-
-scrollToBottom() {
-  this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-}
+  scrollToBottom() {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
 
   componentDidMount() {
       //Add event listener for change of Todo Store
@@ -42,14 +38,33 @@ scrollToBottom() {
   }
 
 
-componentDidUpdate() {
-  this.scrollToBottom();
-}
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
 
   deleteList(event) {
     event.preventDefault();
     TodoService.deleteTask(this.props.index);
   }
+
+  customValidateText(text) {
+      return (text.length > 0 && text.length < 64);
+  }
+
+ dataChanged(data) {
+        // data = { description: "New validated text comes here" } 
+        // Update your model from here 
+        //console.log(data)
+        //this.setState({...data})
+    }
+
+_handleFocus(text) {
+        console.log('Focused with text: ' + text);
+    }
+ 
+    _handleFocusOut(text) {
+        console.log('Left editor with text: ' + text);
+    }
 
     render(){
         var array = this.state.todos;
@@ -67,7 +82,18 @@ componentDidUpdate() {
           {/*<div className={!this.props.markedDone ? "todo" : "todo todoisdone"}>*/}
             {/*<input className="todo-checkbox custom-checkbox" type="checkbox" checked={this.props.markedDone} onClick={this.toggleCheckbox}/>*/}
             <div className = "delete-list-btn" onClick={this.deleteList}>X</div>
-            <div className="todo-name"> {this.props.title} </div>
+            {/*<div className="todo-name"> {this.props.title} </div>*/}
+            <EditableLabel text={this.props.title}
+                className='todo-name'
+                //inputClassName='todo-name'
+                inputWidth='200px'
+                inputHeight='25px'
+                inputMaxLength='50'
+                labelFontWeight='700'
+                inputFontWeight='bold'
+                onFocus={this._handleFocus}
+                onFocusOut={this._handleFocusOut}
+            />
             
             
             <hr className="style1"></hr>

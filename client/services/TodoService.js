@@ -19,8 +19,8 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt})
     .end( (err, res) => {
         if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not fetch todos at this time. Server might be down.');}
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not fetch todos at this time. Server might be down.');}
             return;
         }
         else{
@@ -38,8 +38,8 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt, "list_id":list_id})
     .end( (err, res) => {
         if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not fetch todos at this time. Server might be down.');}
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not fetch todos at this time. Server might be down.');}
             return;
         }
         else{
@@ -59,8 +59,8 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt, "id":id, "newRating": newRating})
     .end( (err, res) => {
         if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not toggle todo at this time. Server might be down.');}
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not toggle todo at this time. Server might be down.');}
             return;
         }
         else{
@@ -78,8 +78,8 @@ class TodoService {
         if(err || !res.ok){
           console.log("ERRORS = " + JSON.stringify(res.body));
           
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not create task at this time. Server might be down.');}
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not create task at this time. Server might be down.');}
             return;
         }
         else{
@@ -102,8 +102,8 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTasks[taskIndex]._id, "tags":TodoStore.allTags[taskIndex]})
     .end( (err, res) => {
         if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not create task at this time. Server might be down.');}
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not create task at this time. Server might be down.');}
             return;
         }
         else{
@@ -125,8 +125,8 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTags[list_index][tag_index]._id, "list_id":list_id})
     .end( (err, res) => {
         if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not delete tag at this time. Server might be down.');}
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not delete tag at this time. Server might be down.');}
             return;
         }
         else{
@@ -143,8 +143,8 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt, "name":tagName, "list_id":list_id})
     .end( (err, res) => {
         if(err || !res.ok){
-            if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
-            else{ AlertActions.displayMessage('error', 'Can not create tag at this time. Server might be down.');}
+            //if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            //else{ AlertActions.displayMessage('error', 'Can not create tag at this time. Server might be down.');}
             return;
         }
         else{

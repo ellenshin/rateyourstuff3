@@ -63,6 +63,15 @@ export default {
     });
   },
   
+
+  updateTask: (listIndex, newTitle) => {
+    AppDispatcher.dispatch({
+      type: 'UPDATE_TASK',
+      listIndex: listIndex,
+      newTitle: newTitle
+    });
+  },
+
   emptyOut: () => {
     AppDispatcher.dispatch({
       type: 'EMPTY_OUT'

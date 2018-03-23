@@ -35,6 +35,11 @@ module.exports.toggleDone = function(taskId, callback){
  
 }
 
+
+module.exports.updateTitle = function(id, newTitle, callback) {
+  Task.findByIdAndUpdate(id, {title: newTitle}, callback);
+}
+
 module.exports.getTask = function(taskId, callback) {
   Task.findById(taskId, callback);
 }

@@ -12,6 +12,7 @@ class TodoList extends React.Component {
     //Set the initial state of the component
     this.state = {todos: TodoStore.allTags};
     this.deleteList = this.deleteList.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
       
   }
 
@@ -38,13 +39,14 @@ class TodoList extends React.Component {
   }
 
 
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
+  // componentDidUpdate() {
+  //   this.scrollToBottom();
+  // }
 
   deleteList(event) {
     event.preventDefault();
     TodoService.deleteTask(this.props.index);
+    console.log('this logs')
   }
 
   customValidateText(text) {
@@ -62,7 +64,8 @@ _handleFocus(text) {
         console.log('Focused with text: ' + text);
     }
  
-    _handleFocusOut(text) {
+    _handleFocusOut(new_title) {
+        TodoService.updateList(new_title, this.props.index, this.props.list._id);
         console.log('Left editor with text: ' + text);
     }
 
@@ -104,7 +107,7 @@ _handleFocus(text) {
               })}
 
             </ul>
-            <NewTodo list={this.props.list} index={this.props.index}/>
+            <NewTodo scrollToBottom={this.scrollToBottom} list={this.props.list} index={this.props.index}/>
             <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
             </div>

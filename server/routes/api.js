@@ -116,15 +116,23 @@ router.post('/task_toggledone', passport.authenticate('jwt', { session: false })
     });
 
   router.post('/tag_newrating', passport.authenticate('jwt', { session: false }), function(req,res) {
-  
-    //Error checking
-    // req.checkBody('id','Id must be a 24 byte hex string ID').isMongoId();
-    // if(req.validationErrors()){
-    //   return res.status(400).json({ message: 'Unable to create task with this title and tags', errors: req.validationErrors() });        
-    // };
-  //Toggle task in DB
-    // var id = req.body.id;
     Tasktag.updateRating(req.body.id, req.body.newRating, function(err,doc){
+      if(err){
+        console.log("Error on task toggle = " + err);
+        return res.status(400).json({message: "Unable to toggle task in database", error: err.message});
+      }
+      if(!doc){
+        return res.status(400).json({message: "Unable to toggle task in database"});
+      }
+      else{
+        return res.status(200).json({message: "Task toggled succesfully"});
+      }
+    });
+    
+  });
+
+  router.post('/task_rename', passport.authenticate('jwt', { session: false }), function(req,res) {
+    Task.updateTitle(req.body.id, req.body.new_title, function(err,doc){
       if(err){
         console.log("Error on task toggle = " + err);
         return res.status(400).json({message: "Unable to toggle task in database", error: err.message});

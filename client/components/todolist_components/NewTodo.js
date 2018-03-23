@@ -26,6 +26,7 @@ class NewTodo extends React.Component {
     //console.log("PARAMS", this.state.newTodoName, this.props.list._id, this.props.index);
     TodoService.createTag(this.state.newTodoName, this.props.list._id, this.props.index);
     this.setState( { newTodoName: '' });
+    this.props.scrollToBottom();
   }
 
     render(){

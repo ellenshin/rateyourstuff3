@@ -4,7 +4,7 @@ var Constants = {
   PAGE_TITLE: "RateYourStuff",
 
   //Timeouts
-  ALERT_MESSAGE_TIMEOUT: 10000, //Set to 10 thousand miliseconds
+  ALERT_MESSAGE_TIMEOUT: 10, //Set to 10 thousand miliseconds
 
   //Authorization
   LOGIN_URL_LOCAL: '/auth/login/local',
@@ -25,7 +25,8 @@ var Constants = {
   API_TASKS_CREATE: '/api/task_create',
   API_TASKS_TOGGLEDONE: '/api/task_toggledone',
   API_TASKS_DELETE: '/api/task_delete',
-
+  API_TASK_NEWTITLE: '/api/task_rename',
+  
   API_TAGS_GETBYID: '/api/tags_getbyid',
   API_TAGS_GETALL: '/api/tasktag_getall',
   API_TAGS_CREATE: '/api/tasktag_create',

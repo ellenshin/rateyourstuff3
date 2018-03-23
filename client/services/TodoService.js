@@ -70,7 +70,28 @@ class TodoService {
       });
   }
 
+  updateList(new_title, list_index, list_id){
+    request
+    .post(Constants.API_TASK_NEWTITLE)
+    .send({"Authorization":LoginStore._jwt, "id":list_id, "new_title": new_title})
+    .end( (err, res) => {
+        if(err || !res.ok){
+            // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
+            // else{ AlertActions.displayMessage('error', 'Can not toggle todo at this time. Server might be down.');}
+            return;
+        }
+        else{
+          //We toggle task in the store
+          TodoActions.updateTask(list_index, new_title);
+        }
+      });
+  }
+
   createTask(taskTitle) {
+    if(taskTitle.length == 0) {
+      AlertActions.displayMessage('warning', "Name your list!");
+    }
+
     request
     .post(Constants.API_TASKS_CREATE)
     .send({"Authorization":LoginStore._jwt, "title":taskTitle, "tags":[]})

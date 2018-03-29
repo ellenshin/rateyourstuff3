@@ -26,6 +26,20 @@ class SuggestionStore extends BaseStore {
         this._suggestions[1].content = action.books.slice(0,3);
         this.emitChange();
         break;
+
+      case 'NEW_MOVIE_SUGGESTIONS':
+        this._suggestions[2].content = action.movies.slice(0,3);
+        this.emitChange();
+        break;
+
+      case 'CLEAR_SUGGESTIONS':
+        this._suggestions =[
+          {title:'music', content:[]},
+          {title:'book', content:[]},
+          {title:'movie', content:[]}
+        ];
+        this.emitChange();
+        break;
         
       default:
         break;

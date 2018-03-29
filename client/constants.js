@@ -24,6 +24,8 @@ var Constants = {
 
   GOOGLE_SEARCH_BOOKS: 'https://www.googleapis.com/books/v1/volumes?q=',
   GOOGLE_BOOKS_API: '&key=AIzaSyA4_kUw_aggE-4HWPxbjAiPzgBF_vRe2tg',
+
+  OMDB_API: 'http://www.omdbapi.com/?apikey=84b16007&s=',
   //Todo apis
   API_TASKS_GETALL: '/api/task_getall',
   API_TASKS_CREATE: '/api/task_create',

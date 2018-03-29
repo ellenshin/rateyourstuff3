@@ -5,6 +5,7 @@ import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import SuggestionService from '../../services/SuggestionService'
 import SuggestionStore from '../../stores/SuggestionStore'
+import SuggestionAction from '../../actions/SuggestionActions'
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -22,9 +23,11 @@ function getSuggestions(value) {
   
   SuggestionService.searchAlbums(value);
   SuggestionService.searchBooks(value);
+  SuggestionService.searchMovies(value);
   console.log(SuggestionStore.allSuggestions);
 
-  return SuggestionStore.allSuggestions.filter(section => section.content.length > 0);
+  return SuggestionStore.allSuggestions
+  .filter(section => section.content.length > 0);
   //return people.filter(person => regex.test(getSuggestionValue(person)));
 }
 
@@ -50,8 +53,8 @@ function renderSuggestion(suggestion, { query }) {
   //console.log(imageUrl);
   return (
     <span className={'suggestion-content'}>
-    {/*<img src={imageUrl} height='40px' width='40px'> 
-     </img>*/}
+    <img src={suggestion.imageUrl} height='40px'> 
+     </img>
       <span className="name">
         {
           parts.map((part, index) => {
@@ -103,6 +106,7 @@ class NewTodo extends React.Component {
     this.setState({
       suggestions: []
     });
+    SuggestionAction.clearSuggestions();
   };
 
   createStuff(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {

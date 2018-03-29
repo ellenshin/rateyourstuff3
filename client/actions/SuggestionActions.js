@@ -14,6 +14,19 @@ export default {
       type: 'NEW_BOOK_SUGGESTIONS',
       books: books
     });
+  },
+
+  newMovieSuggestions: (movies) => {
+    AppDispatcher.dispatch({
+      type: 'NEW_MOVIE_SUGGESTIONS',
+      movies: movies
+    });
+  },
+
+  clearSuggestions: () => {
+    AppDispatcher.dispatch({
+      type: 'CLEAR_SUGGESTIONS'
+    });
   }
         
 }

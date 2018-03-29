@@ -18,10 +18,12 @@ class NavigationBar extends React.Component {
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/login" activeClassName="active">Login</NavLink>
                     </li>
-                    
+                    {/*
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/register" activeClassName="active">Register</NavLink>
                     </li>
+                    */}
+                    
                 </ul>
             )
         }

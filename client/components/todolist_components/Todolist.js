@@ -2,7 +2,8 @@ import React from 'react';
 import TodoItem from './TodoItem';
 import TodoService from '../../services/TodoService'
 import NewTodo from './NewTodo';
-import EditableLabel from 'react-edit-inline';
+import InlineEdit from 'react-edit-inline';
+import NewStuff from './NewStuff';
 
 class TodoList extends React.Component {
     
@@ -13,18 +14,22 @@ class TodoList extends React.Component {
     this.state = {todos: TodoStore.allTags};
     this.deleteList = this.deleteList.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
-      
+    this.dataChanged = this.dataChanged.bind(this);
   }
 
   scrollToBottom() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    console.log("scrolled")
   }
 
   componentDidMount() {
       //Add event listener for change of Todo Store
+
       this.tagChange = () => { 
         console.log("TASKS IN TODO LIST CHANGED!");
-        this.setState( {todos: TodoStore.allTags}) 
+        let obj = Object.assign({}, this.state.todos);
+        obj.todos = TodoStore.allTags;
+        this.setState(obj) 
       };
 
       TodoStore.addChangeListener(this.tagChange);    
@@ -39,9 +44,15 @@ class TodoList extends React.Component {
   }
 
 
-  // componentDidUpdate() {
-  //   this.scrollToBottom();
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    // if (prevState.todos.length < this.state.todos.length)
+    // {
+    //   this.scrollToBottom();
+    // } else {
+    //   console.log(prevState.todos, this.state.todos)
+    // }
+    this.scrollToBottom();
+  }
 
   deleteList(event) {
     event.preventDefault();
@@ -53,12 +64,10 @@ class TodoList extends React.Component {
       return (text.length > 0 && text.length < 64);
   }
 
- dataChanged(data) {
-        // data = { description: "New validated text comes here" } 
-        // Update your model from here 
-        //console.log(data)
-        //this.setState({...data})
-    }
+ dataChanged(new_title) {
+    TodoService.updateList(new_title.message, this.props.index, this.props.list._id);
+    console.log(new_title.message)
+  }
 
 _handleFocus(text) {
         console.log('Focused with text: ' + text);
@@ -79,26 +88,21 @@ _handleFocus(text) {
         var list_index = this.props.index;
         var list_id = this.props.list._id;
         return (
-          
           <div className="todo-list rounded">
             
           {/*<div className={!this.props.markedDone ? "todo" : "todo todoisdone"}>*/}
             {/*<input className="todo-checkbox custom-checkbox" type="checkbox" checked={this.props.markedDone} onClick={this.toggleCheckbox}/>*/}
             <div className = "delete-list-btn" onClick={this.deleteList}>X</div>
             {/*<div className="todo-name"> {this.props.title} </div>*/}
-            <EditableLabel text={this.props.title}
-                className='todo-name'
-                //inputClassName='todo-name'
-                inputWidth='200px'
-                inputHeight='25px'
-                inputMaxLength='50'
-                labelFontWeight='700'
-                inputFontWeight='bold'
-                onFocus={this._handleFocus}
-                onFocusOut={this._handleFocusOut}
+            <InlineEdit
+              className="todo-name"
+              activeClassName="editing"
+              text={this.props.title}
+              paramName="message"
+              change={this.dataChanged}
             />
             
-            
+            <NewStuff list={this.props.list} index={this.props.index}/>
             <hr className="style1"></hr>
             <ul className="todo-tags">
               
@@ -107,7 +111,7 @@ _handleFocus(text) {
               })}
 
             </ul>
-            <NewTodo scrollToBottom={this.scrollToBottom} list={this.props.list} index={this.props.index}/>
+            
             <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
             </div>

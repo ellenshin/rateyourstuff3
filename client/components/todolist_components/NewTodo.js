@@ -11,7 +11,7 @@ class NewTodo extends React.Component {
       newTodoName: ''
     };
     this.updateNewTodoName = this.updateNewTodoName.bind(this);    
-    this.createStuff = this.createStuff.bind(this);      
+    this.createStuff = this.createStuff.bind(this);  
   }
 
   updateNewTodoName(event){
@@ -19,14 +19,13 @@ class NewTodo extends React.Component {
     this.setState({ newTodoName: event.target.value })
   }
 
-
   createStuff(event) {
     //TODO: Add form validation
     event.preventDefault();
     //console.log("PARAMS", this.state.newTodoName, this.props.list._id, this.props.index);
     TodoService.createTag(this.state.newTodoName, this.props.list._id, this.props.index);
     this.setState( { newTodoName: '' });
-    this.props.scrollToBottom();
+    //this.props.scrollToBottom();
   }
 
     render(){
@@ -44,8 +43,9 @@ class NewTodo extends React.Component {
           </span>
         </div>
       </form>
-
+            
     </div>
+
 
     )}
 }

@@ -1,10 +1,28 @@
 import React from 'react';
 import LoginTextInput from './form_components/LoginTextInput'
+import { Redirect } from 'react-router';
 
 class LoginForm extends React.Component {
-    
+
+  constructor(props){
+    super(props);
+
+    //Set the initial state of the component
+    this.state = {redirect: false};
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+handleOnClick(){
+  // some action...
+  // then redirect
+  this.setState({redirect: true});
+}
+
     render(){
 
+if (this.state.redirect) {
+    return <Redirect push to="/register" />;
+  }
       const errors = this.props.errors;
       const user = this.props.user;      
       const onChange = this.props.onChange;
@@ -44,9 +62,11 @@ class LoginForm extends React.Component {
 
             <div className="form-group">
               <button type="submit" className="btn btn-outline-secondary">Login</button>
+            &nbsp;&nbsp;
+            <button type="button" onClick={this.handleOnClick} className="btn btn-outline-secondary">Register</button>
             </div>
-
           </form>
+          
         
         </div>
     )}

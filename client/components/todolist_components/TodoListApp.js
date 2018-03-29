@@ -5,6 +5,7 @@ import NewTodoList from './NewTodoList';
 import TodoStore from '../../stores/TodoStore'
 import TodoActions from '../../actions/TodoActions'
 import TodoService from '../../services/TodoService'
+import NewTodo from './NewTodo';
 
 class TodoListApp extends React.Component {
     
@@ -48,10 +49,10 @@ class TodoListApp extends React.Component {
         {this.state.tasks.map( function(task, index){
             return <TodoList key={index} index={index} title={task.title} todos={task.tags} list={task} />
         })}
-
-        {/* Input field for new todo */}
         
+        {/* Input field for new todo */}
       </div>
+
       )
     }
 }

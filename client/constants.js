@@ -19,7 +19,11 @@ var Constants = {
   GOOGLE_APP_ID: "614545485749-oig4iircafuop4u2vqusqhf4fslm4kp1.apps.googleusercontent.com",
   GOOGLE_APP_SECRET: "2XSXwe7bpN4IS1so5CcRm365",
 
+  LAST_FM_SEARCH_ALBUMS: 'http://ws.audioscrobbler.com/2.0/?method=album.search&album=',
+  LAST_FM_API: '&api_key=57468c7603262db4ad67f48474468b8e&format=json',
 
+  GOOGLE_SEARCH_BOOKS: 'https://www.googleapis.com/books/v1/volumes?q=',
+  GOOGLE_BOOKS_API: '&key=AIzaSyA4_kUw_aggE-4HWPxbjAiPzgBF_vRe2tg',
   //Todo apis
   API_TASKS_GETALL: '/api/task_getall',
   API_TASKS_CREATE: '/api/task_create',

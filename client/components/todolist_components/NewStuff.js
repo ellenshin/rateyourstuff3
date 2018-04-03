@@ -6,13 +6,14 @@ import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import SuggestionService from '../../services/SuggestionService'
 import SuggestionStore from '../../stores/SuggestionStore'
 import SuggestionAction from '../../actions/SuggestionActions'
+import Dropdown from 'react-dropdown'
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function getSuggestions(value) {
+function getSuggestions(value, category) {
   const escapedValue = escapeRegexCharacters(value.trim());
   
   if (escapedValue === '') {
@@ -21,9 +22,31 @@ function getSuggestions(value) {
 
   const regex = new RegExp('\\b' + escapedValue, 'i');
   
-  SuggestionService.searchAlbums(value);
-  SuggestionService.searchBooks(value);
-  SuggestionService.searchMovies(value);
+  console.log(category);
+  switch(category.label) {
+    case 'All':
+      SuggestionService.searchAlbums(value);
+      SuggestionService.searchBooks(value);
+      SuggestionService.searchMovies(value);
+      break;
+    case 'Albums':
+      SuggestionService.searchAlbums(value);
+      break;
+    case 'Books':
+      SuggestionService.searchBooks(value);
+      break;
+    case 'Movies':
+      SuggestionService.searchMovies(value);
+      break;
+    default:
+      SuggestionService.searchAlbums(value);
+      SuggestionService.searchBooks(value);
+      SuggestionService.searchMovies(value);
+      break;
+  }
+  // SuggestionService.searchAlbums(value);
+  // SuggestionService.searchBooks(value);
+  // SuggestionService.searchMovies(value);
   console.log(SuggestionStore.allSuggestions);
 
   return SuggestionStore.allSuggestions
@@ -53,7 +76,7 @@ function renderSuggestion(suggestion, { query }) {
   //console.log(imageUrl);
   return (
     <span className={'suggestion-content'}>
-    <img src={suggestion.imageUrl} height='40px'> 
+    <img src={suggestion.imageUrl} height='35px'> 
      </img>
       <span className="name">
         {
@@ -70,19 +93,29 @@ function renderSuggestion(suggestion, { query }) {
   );
 }
 
-class NewTodo extends React.Component {
+const options = [
+  'All', 'Albums', 'Books', 'Movies'
+]
+
+class NewStuff extends React.Component {
   constructor() {
     super();
 
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      selected: options[0]
     };    
     this.onChange = this.onChange.bind(this)
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.onSuggestionsClearRequested= this.onSuggestionsClearRequested.bind(this)
     this.createStuff = this.createStuff.bind(this);  
     this.scrollToBottom = this.scrollToBottom.bind(this);
+    this._onSelect = this._onSelect.bind(this);
+  }
+
+  _onSelect (option) {
+    this.setState({selected: option})
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -98,7 +131,7 @@ class NewTodo extends React.Component {
   
   onSuggestionsFetchRequested({ value }) {
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: getSuggestions(value, this.state.selected)
     });
   };
 
@@ -113,7 +146,7 @@ class NewTodo extends React.Component {
     //TODO: Add form validation
 
     //console.log("PARAMS", this.state.newTodoName, this.props.list._id, this.props.index);
-    TodoService.createTag(suggestionValue, this.props.list._id, this.props.index);
+    TodoService.createTag(suggestion, sectionIndex, this.props.list._id, this.props.index);
     this.setState( {
       value: '',
       suggestions: []
@@ -133,10 +166,11 @@ class NewTodo extends React.Component {
       value,
       onChange: this.onChange
     };
-
+    const defaultOption = this.state.selected;
     return (
       <div>
-      <Autosuggest 
+      <Autosuggest
+        style={{float:"left"}}
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -147,6 +181,7 @@ class NewTodo extends React.Component {
         renderSectionTitle={renderSectionTitle}
         getSectionSuggestions={getSectionSuggestions}
         onSuggestionSelected={this.createStuff} />
+        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
         <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
         </div>
@@ -155,4 +190,4 @@ class NewTodo extends React.Component {
   }
 }
 
-export default NewTodo;
+export default NewStuff;

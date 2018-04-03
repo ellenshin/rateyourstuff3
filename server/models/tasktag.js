@@ -4,7 +4,10 @@ var TasktagSchema = mongoose.Schema({
 
     name           : String,
     rating         : { type: Number, default: 0 },
-    user_id        : mongoose.Schema.Types.ObjectId //User that created this task
+    user_id        : mongoose.Schema.Types.ObjectId, //User that created this task
+    img_url        : { type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNf0Teecy2bqycPmLAMFuMoOd29LRhR4kKSofmjQq5TxDIXge_xw"},
+    made_by        : { type: String, default: "Unknown" },
+    year           : { type: String, default: "Unknown" }
 });
 
 //We create a variable accesible outside of this file. Variable will be a mongoose schema with added functions

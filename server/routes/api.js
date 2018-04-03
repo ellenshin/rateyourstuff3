@@ -222,6 +222,8 @@ router.post('/tasktag_create', passport.authenticate('jwt', { session: false }),
     var tag = new Tasktag();
     tag.user_id = req.user._id;
     tag.name = req.body.name;
+    tag.made_by = req.body.made_by;
+    tag.img_url = req.body.img_url;
     var list_id = req.body.list_id;
 
     Tasktag.createTag(tag, function(err, tag){

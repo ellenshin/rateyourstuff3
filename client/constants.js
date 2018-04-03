@@ -21,7 +21,9 @@ var Constants = {
 
   LAST_FM_SEARCH_ALBUMS: 'http://ws.audioscrobbler.com/2.0/?method=album.search&album=',
   LAST_FM_API: '&api_key=57468c7603262db4ad67f48474468b8e&format=json',
-
+  LAST_FM_ALBUM_INFO: 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=57468c7603262db4ad67f48474468b8e&mbid=',
+  LAST_FM_ALBUM_INFO_2: '&format=json',
+  
   GOOGLE_SEARCH_BOOKS: 'https://www.googleapis.com/books/v1/volumes?q=',
   GOOGLE_BOOKS_API: '&key=AIzaSyA4_kUw_aggE-4HWPxbjAiPzgBF_vRe2tg',
 

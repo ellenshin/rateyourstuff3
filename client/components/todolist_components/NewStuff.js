@@ -22,7 +22,6 @@ function getSuggestions(value, category) {
 
   const regex = new RegExp('\\b' + escapedValue, 'i');
   
-  console.log(category);
   switch(category.label) {
     case 'All':
       SuggestionService.searchAlbums(value);
@@ -146,7 +145,7 @@ class NewStuff extends React.Component {
     //TODO: Add form validation
 
     //console.log("PARAMS", this.state.newTodoName, this.props.list._id, this.props.index);
-    TodoService.createTag(suggestion, sectionIndex, this.props.list._id, this.props.index);
+    TodoService.createTag(suggestion, this.props.list._id, this.props.index);
     this.setState( {
       value: '',
       suggestions: []

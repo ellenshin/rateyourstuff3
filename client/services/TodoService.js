@@ -158,10 +158,10 @@ class TodoService {
       });
   }
 
-  createTag(suggestion, sectionIndex, list_id, list_index) {
+  createTag(suggestion, list_id, list_index) {
     request
     .post(Constants.API_TAGS_CREATE)
-    .send({"Authorization":LoginStore._jwt, "name":suggestion.name, "list_id":list_id})
+    .send({"Authorization":LoginStore._jwt, "img_url": suggestion.imageUrl, "made_by": suggestion.made_by, "name":suggestion.name, "list_id":list_id})
     .end( (err, res) => {
         if(err || !res.ok){
             //if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }

@@ -126,6 +126,7 @@ background: #E74B37;
   display: inline;
   list-style: none;
   margin: none;
+  padding: 0px;
 }
 
 .todo-tags li {
@@ -156,7 +157,7 @@ background: #E74B37;
 
 /* star padding left */
 .rating-stars {
-    padding-left: 59%;
+    padding-left: 64%;
 }
 .delete-btn {
   float:right;

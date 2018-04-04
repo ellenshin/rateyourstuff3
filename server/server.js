@@ -10,7 +10,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var path = require('path');
-var session = require('express-session');
+var session = require('cookie-session');
 
 //Setup database
 mongoose.connect(APP_CONFIG.dbLocation);

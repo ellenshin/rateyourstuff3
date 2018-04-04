@@ -8,50 +8,66 @@ import SuggestionStore from '../../stores/SuggestionStore'
 import SuggestionAction from '../../actions/SuggestionActions'
 import Dropdown from 'react-dropdown'
 
+
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
+
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function getSuggestions(value, category) {
-  const escapedValue = escapeRegexCharacters(value.trim());
+// function getSuggestions(value, category) {
+//   const escapedValue = escapeRegexCharacters(value.trim());
   
-  if (escapedValue === '') {
-    return [];
-  }
+//   if (escapedValue === '') {
+//     return [];
+//   }
 
-  const regex = new RegExp('\\b' + escapedValue, 'i');
-  
-  switch(category.label) {
-    case 'All':
-      SuggestionService.searchAlbums(value);
-      SuggestionService.searchBooks(value);
-      SuggestionService.searchMovies(value);
-      break;
-    case 'Albums':
-      SuggestionService.searchAlbums(value);
-      break;
-    case 'Books':
-      SuggestionService.searchBooks(value);
-      break;
-    case 'Movies':
-      SuggestionService.searchMovies(value);
-      break;
-    default:
-      SuggestionService.searchAlbums(value);
-      SuggestionService.searchBooks(value);
-      SuggestionService.searchMovies(value);
-      break;
-  }
-  // SuggestionService.searchAlbums(value);
-  // SuggestionService.searchBooks(value);
-  // SuggestionService.searchMovies(value);
-  console.log(SuggestionStore.allSuggestions);
+//   const regex = new RegExp('\\b' + escapedValue, 'i');
 
-  return SuggestionStore.allSuggestions
-  .filter(section => section.content.length > 0);
-  //return people.filter(person => regex.test(getSuggestionValue(person)));
-}
+//   // var album_p = new Promise( (resolve, reject) => {
+//   //   SuggestionService.searchAlbums(value);
+//   // } );
+
+//   // var book_p = new Promise( (resolve, reject) => {
+//   //   SuggestionService.searchBooks(value);
+//   // } );
+
+//   // var movie_p = new Promise( (resolve, reject) => {
+//   //   SuggestionService.searchMovies(value);
+//   // } );
+
+//   switch(category.label) {
+//     case 'All':
+//       Promise.all([SuggestionService.searchAlbums(value),
+//         SuggestionService.searchBooks(value),
+//         SuggestionService.searchMovies(value)])
+//       .then(
+//         console.log(SuggestionStore.allSuggestions);
+
+//         return SuggestionStore.allSuggestions
+//         .filter(section => section.content.length > 0);
+//       )
+//       break;
+//     case 'Albums':
+//       SuggestionService.searchAlbums(value);
+//       break;
+//     case 'Books':
+//       SuggestionService.searchBooks(value);
+//       break;
+//     case 'Movies':
+//       SuggestionService.searchMovies(value);
+//       break;
+//     default:
+//       SuggestionService.searchAlbums(value);
+//       SuggestionService.searchBooks(value);
+//       SuggestionService.searchMovies(value);
+//       break;
+//   }
+
+//   return SuggestionStore.allSuggestions
+//   .filter(section => section.content.length > 0);
+//  // return people.filter(person => regex.test(getSuggestionValue(person)));
+// }
 
 function getSuggestionValue(suggestion) {
   return `${suggestion.name}`;
@@ -103,7 +119,8 @@ class NewStuff extends React.Component {
     this.state = {
       value: '',
       suggestions: [],
-      selected: options[0]
+      selected: options[0],
+      isLoading: false
     };    
     this.onChange = this.onChange.bind(this)
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
@@ -111,6 +128,7 @@ class NewStuff extends React.Component {
     this.createStuff = this.createStuff.bind(this);  
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this._onSelect = this._onSelect.bind(this);
+    this.lastRequestId = null;
   }
 
   _onSelect (option) {
@@ -129,9 +147,10 @@ class NewStuff extends React.Component {
   };
   
   onSuggestionsFetchRequested({ value }) {
-    this.setState({
-      suggestions: getSuggestions(value, this.state.selected)
-    });
+    // this.setState({
+    //   suggestions: getSuggestions(value, this.state.selected)
+    // });
+    this.loadSuggestions(value);
   };
 
   onSuggestionsClearRequested() {
@@ -150,7 +169,79 @@ class NewStuff extends React.Component {
       value: '',
       suggestions: []
     });
-    //this.props.scrollToBottom();
+    
+  }
+
+  loadSuggestions(value) {
+    // Cancel the previous request
+    if (this.lastRequestId !== null) {
+      //clearTimeout(this.lastRequestId);
+    }
+    
+    this.setState({
+      isLoading: true
+    });
+    
+    switch(this.state.selected.label) {
+    case 'All':
+    this.lastRequestId =
+      Promise.all([SuggestionService.searchAlbums(value),
+        SuggestionService.searchBooks(value),
+        SuggestionService.searchMovies(value)])
+      .then(
+        result => this.setState({
+        isLoading: false,
+        suggestions: SuggestionStore.allSuggestions.filter(section => section.content.length > 0)
+      }));
+      break;
+    case 'Albums':
+    this.lastRequestId =
+      SuggestionService.searchAlbums(value)
+      .then(
+        result => this.setState({
+        isLoading: false,
+        suggestions: SuggestionStore.allSuggestions.filter(section => section.content.length > 0)
+      }));
+      break;
+    case 'Books':
+    this.lastRequestId =
+      SuggestionService.searchBooks(value)
+      .then(
+        result => this.setState({
+        isLoading: false,
+        suggestions: SuggestionStore.allSuggestions.filter(section => section.content.length > 0)
+      }));
+      break;
+    case 'Movies':
+    this.lastRequestId =
+      SuggestionService.searchMovies(value)
+      .then(
+        result => this.setState({
+        isLoading: false,
+        suggestions: SuggestionStore.allSuggestions.filter(section => section.content.length > 0)
+      }));
+    break;
+    default:
+    this.lastRequestId =
+      Promise.all([SuggestionService.searchAlbums(value),
+        SuggestionService.searchBooks(value),
+        SuggestionService.searchMovies(value)])
+      .then(
+        result => this.setState({
+        isLoading: false,
+        suggestions: SuggestionStore.allSuggestions.filter(section => section.content.length > 0)
+      }));
+    break;
+  }
+
+    // Fake request
+    //this.lastRequestId =
+    // setTimeout(() => {
+    //   this.setState({
+    //     isLoading: false,
+    //     suggestions: getSuggestions(value, this.state.selected)
+    //   });
+    // }, 1000);
   }
 
   scrollToBottom() {
@@ -166,8 +257,13 @@ class NewStuff extends React.Component {
       onChange: this.onChange
     };
     const defaultOption = this.state.selected;
+    const status = (this.state.isLoading ? 'Loading...' : 'Type to load suggestions');
+
     return (
       <div>
+      <div className="status">
+          <strong>Status:</strong> {status}
+      </div>
       <Autosuggest
         style={{float:"left"}}
         suggestions={suggestions}

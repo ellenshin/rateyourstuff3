@@ -25,7 +25,7 @@ var Constants = {
   LAST_FM_ALBUM_INFO_2: '&format=json',
   
   GOOGLE_SEARCH_BOOKS: 'https://www.googleapis.com/books/v1/volumes?q=',
-  GOOGLE_BOOKS_API: '&key=AIzaSyA4_kUw_aggE-4HWPxbjAiPzgBF_vRe2tg',
+  GOOGLE_BOOKS_API: '&key=AIzaSyCO0QVi-0e3LjuofMN2AZ7ZTTgUSoNYo64',
 
   OMDB_API: 'https://www.omdbapi.com/?apikey=84b16007&s=',
   //Todo apis

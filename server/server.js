@@ -11,9 +11,11 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var path = require('path');
 var session = require('cookie-session');
+var uri = process.env.MONGOLAB_URI;
 
 //Setup database
-mongoose.connect(APP_CONFIG.dbLocation);
+//mongoose.connect(APP_CONFIG.dbLocation);
+mongoose.connect(process.env.MONGOLAB_URI || APP_CONFIG.dbLocation);
 var db = mongoose.connection;
 
 //Set routes

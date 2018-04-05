@@ -24,7 +24,7 @@ class TodoStore extends BaseStore {
         break;
 
       case 'LOAD_TAGS':
-        this._tags[action.listIndex] = action.tags;
+        this._tags[action.listIndex] = action.tags.reverse();
         //this._tags.splice(action.listIndex, 0, action.tags);
         this.emitChange();
         break;

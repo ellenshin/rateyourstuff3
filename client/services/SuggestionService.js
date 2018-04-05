@@ -20,7 +20,7 @@ class SuggestionService {
 	  		.then(function (response) {
 	  			let albums = response.data.results.albummatches.album;
 	  			for (var i = 0; i < albums.length; i++) {
-	    			albums[i].imageUrl = albums[i].image[1]['#text'];
+	    			albums[i].imageUrl = albums[i].image[2]['#text'];
 	    			albums[i].suggestionType = "album";
 	    			albums[i].made_by = albums[i].artist;
 	    		}
@@ -42,7 +42,7 @@ class SuggestionService {
 	  			for (var i = 0; i < items.length; i++) {
 	  				books.push(items[i].volumeInfo);
 	  				books[i].name = books[i].title;
-	  				books[i].imageUrl = books[i].imageLinks.smallThumbnail;
+	  				books[i].imageUrl = books[i].imageLinks.thumbnail;
 	  				books[i].suggestionType = "book";
 	  				books[i].made_by = books[i].authors.join(", ");
 	  				//console.log(books[i].authors.join(", "))

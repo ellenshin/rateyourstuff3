@@ -37,8 +37,10 @@ class TodoItem extends React.Component {
             <li key={this.props.index} > 
             <span className="delete-list-btn" onClick={this.deleteTodo}>X</span>
             <div className="list-detail">
-              <img className="list-img" src={this.props.todo.img_url} height='85px'> 
+              <div className="list-img">
+              <img className="list-img-content" src={this.props.todo.img_url} height='85px'> 
               </img>
+              </div>
               <div className="list-desc">
                 <div className="list-name">{this.props.todo.name}</div>
                 <div className="list-made-by">{this.props.todo.made_by}</div>

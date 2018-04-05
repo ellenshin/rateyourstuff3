@@ -52,7 +52,7 @@ module.exports.addStuff = function(taskId, stuffId, callback){
     }
     var markedValue = doc.marked_done;
     //Task.findByIdAndUpdate(taskId, {marked_done: !markedValue}, callback);
-    Task.findByIdAndUpdate(taskId, {$push: {tags: stuffId}}, callback);
+    Task.findByIdAndUpdate(taskId, {$push: {tags: { $each: [stuffId], $position: 0 }}}, callback);
   });
  
 }
@@ -65,6 +65,7 @@ module.exports.deleteStuff = function(taskId, stuffId, callback){
     }
     var markedValue = doc.marked_done;
     //Task.findByIdAndUpdate(taskId, {marked_done: !markedValue}, callback);
+
     Task.findByIdAndUpdate(taskId, {$pull: {tags: stuffId}}, callback);
   });
  

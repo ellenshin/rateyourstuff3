@@ -30,7 +30,7 @@ class TodoStore extends BaseStore {
         break;
 
       case 'ADD_TAG':
-        this._tags[action.listIndex].push(action.newTag);
+        this._tags[action.listIndex].unshift(action.newTag);
         this.emitChange();
         break;
 

@@ -134,13 +134,15 @@ background: #E74B37;
   /*padding: 5px;*/
   /*margin-right: 5px;*/
   font-size: 14px;
-  background: #fff;
+  background: #f7f7f7;
   word-wrap:break-word;
+  padding-bottom: 15px;
+  padding-left: 10px;
 
 }
 
 .todo-tags li:nth-child(2n) {
-  background: #f7f7f7;
+  background: #fff;
 }
 /* Todo delete button */
 
@@ -152,7 +154,8 @@ background: #E74B37;
 
 /* list name padding left */
 .list-name {
-  padding-left: 5%;
+  /*padding-left: 5%;*/
+  font-weight: 600;
 }
 
 /* star padding left */
@@ -231,14 +234,15 @@ background: #E74B37;
 }
 
 .react-autosuggest__input {
-  width: 240px;
-  height: 30px;
+  width: 200px;
+  height: 40px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
   border: 1px solid #aaa;
   border-radius: 4px;
+  float:left;
 }
 
 .react-autosuggest__input:focus {
@@ -295,22 +299,6 @@ background: #E74B37;
   background-repeat: no-repeat;
 }
 
-.dancounsell {
-  background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/48.jpg);
-}
-
-.ladylexy {
-  background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/48.jpg);
-}
-
-.mtnmissy {
-  background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/mtnmissy/48.jpg);
-}
-
-.steveodom {
-  background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/steveodom/48.jpg);
-}
-
 .name {
   margin-left: 68px;
   line-height: 30px;
@@ -340,9 +328,9 @@ background: #E74B37;
   border-top: 0;
 }
 
-.Dropdown-root {
+/*.Dropdown-root {
   position: relative;
-}
+}*/
 
 .Dropdown-control {
   position: relative;
@@ -356,6 +344,8 @@ background: #E74B37;
   outline: none;
   padding: 8px 52px 8px 10px;
   transition: all 200ms ease;
+  margin-left: 200px;
+  width:100px;
 }
 
 .Dropdown-control:hover {
@@ -382,18 +372,18 @@ background: #E74B37;
 }
 
 .Dropdown-menu {
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-  box-sizing: border-box;
-  margin-top: -1px;
-  max-height: 200px;
-  overflow-y: auto;
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  z-index: 1000;
-  -webkit-overflow-scrolling: touch;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    margin-top: -1px;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    margin-left: 200px;
+    /* top: 100%; */
+    width: 100px;
+    z-index: 1000;
 }
 
 .Dropdown-menu .Dropdown-group > .Dropdown-title{
@@ -432,4 +422,30 @@ background: #E74B37;
   cursor: default;
   display: block;
   padding: 8px 10px;
+}
+
+.searchbar {
+  width: 300px;
+  margin: 8px auto;
+}
+
+.list-desc {
+  margin-left: 100px;
+}
+
+.list-img {
+  float:left;
+  margin: 0 auto;
+}
+
+
+.list-detail {
+  width: 300px;
+}
+.list-made-by {
+  font-weight: 200;
+  font-color: #696969;
+}
+.editing {
+  width:100%;
 }

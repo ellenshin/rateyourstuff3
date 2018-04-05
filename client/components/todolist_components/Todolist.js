@@ -51,7 +51,7 @@ class TodoList extends React.Component {
     // } else {
     //   console.log(prevState.todos, this.state.todos)
     // }
-    this.scrollToBottom();
+    //this.scrollToBottom();
   }
 
   deleteList(event) {
@@ -103,7 +103,7 @@ _handleFocus(text) {
             />
             
             <NewStuff list={this.props.list} index={this.props.index}/>
-            <hr className="style1"></hr>
+            {/*<hr className="style1"></hr>*/}
             <ul className="todo-tags">
               
               { stuff.map( function(todo, index){

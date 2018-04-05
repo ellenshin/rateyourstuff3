@@ -35,11 +35,15 @@ class TodoItem extends React.Component {
         return (
           
             <li key={this.props.index} > 
-            <div className="list-name">{this.props.todo.name} <span className="delete-btn" onClick={this.deleteTodo}>X</span></div>
-            <img className="list-img" src={this.props.todo.img_url} height='60px'> 
-            </img>
-            <div className="list-year">{this.props.todo.year}</div>
-            <div className="list-made-by">{this.props.todo.made_by}</div>
+            <span className="delete-list-btn" onClick={this.deleteTodo}>X</span>
+            <div className="list-detail">
+              <img className="list-img" src={this.props.todo.img_url} height='85px'> 
+              </img>
+              <div className="list-desc">
+                <div className="list-name">{this.props.todo.name}</div>
+                <div className="list-made-by">{this.props.todo.made_by}</div>
+              </div>
+            </div>
             <div className="rating-stars">
             <ReactStars value={this.props.todo.rating} count={5} onChange={this.ratingChanged} size={24} color2={'#ffd700'} /> 
             </div>

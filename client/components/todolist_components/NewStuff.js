@@ -169,6 +169,7 @@ class NewStuff extends React.Component {
       value: '',
       suggestions: []
     });
+    SuggestionAction.clearSuggestions();
     
   }
 
@@ -250,20 +251,18 @@ class NewStuff extends React.Component {
   }
 
   render() {
-    const { value, suggestions } = this.state;
+    const { value, suggestions, isLoading } = this.state;
     const inputProps = {
       placeholder: "Type something...",
       value,
       onChange: this.onChange
     };
     const defaultOption = this.state.selected;
-    const status = (this.state.isLoading ? 'Loading...' : 'Type to load suggestions');
+    const status = (isLoading ? 'Loading...' : 'Type to load suggestions');
 
     return (
       <div>
-      <div className="status">
-          <strong>Status:</strong> {status}
-      </div>
+      <div className='searchbar'>
       <Autosuggest
         style={{float:"left"}}
         suggestions={suggestions}
@@ -277,6 +276,7 @@ class NewStuff extends React.Component {
         getSectionSuggestions={getSectionSuggestions}
         onSuggestionSelected={this.createStuff} />
         <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        </div>
         <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.messagesEnd = el; }}>
         </div>

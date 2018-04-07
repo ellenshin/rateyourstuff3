@@ -247,7 +247,7 @@ class NewStuff extends React.Component {
 
   scrollToBottom() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    console.log("scrolled")
+    //console.log("scrolled")
   }
 
   render() {

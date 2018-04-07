@@ -19,14 +19,14 @@ class TodoList extends React.Component {
 
   scrollToBottom() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    console.log("scrolled")
+    //console.log("scrolled")
   }
 
   componentDidMount() {
       //Add event listener for change of Todo Store
 
       this.tagChange = () => { 
-        console.log("TASKS IN TODO LIST CHANGED!");
+        //console.log("TASKS IN TODO LIST CHANGED!");
         let obj = Object.assign({}, this.state.todos);
         obj.todos = TodoStore.allTags;
         this.setState(obj) 
@@ -57,7 +57,7 @@ class TodoList extends React.Component {
   deleteList(event) {
     event.preventDefault();
     TodoService.deleteTask(this.props.index);
-    console.log('this logs')
+    //console.log('this logs')
   }
 
   customValidateText(text) {
@@ -66,16 +66,16 @@ class TodoList extends React.Component {
 
  dataChanged(new_title) {
     TodoService.updateList(new_title.message, this.props.index, this.props.list._id);
-    console.log(new_title.message)
+    //console.log(new_title.message)
   }
 
 _handleFocus(text) {
-        console.log('Focused with text: ' + text);
+        //console.log('Focused with text: ' + text);
     }
  
     _handleFocusOut(new_title) {
         TodoService.updateList(new_title, this.props.index, this.props.list._id);
-        console.log('Left editor with text: ' + text);
+        //console.log('Left editor with text: ' + text);
     }
 
     render(){
@@ -84,7 +84,7 @@ _handleFocus(text) {
         if (stuff === undefined) {
           var stuff = [];
         }
-        console.log("ARRAY", array, stuff);
+        //console.log("ARRAY", array, stuff);
         var list_index = this.props.index;
         var list_id = this.props.list._id;
         return (

@@ -45,7 +45,7 @@ class TodoService {
         else{
           //TodoActions.loadTasksAndTags(tags,tasks);
           var tags = res.body.tags;
-          console.log("TAGS FROM FETCH", tags);
+          //console.log("TAGS FROM FETCH", tags);
           TodoActions.loadTags(tags, index);
           //return res.body.tags;
           //We obtain tasks. Now do a chain request to obtain tags
@@ -97,7 +97,7 @@ class TodoService {
     .send({"Authorization":LoginStore._jwt, "title":taskTitle, "tags":[]})
     .end( (err, res) => {
         if(err || !res.ok){
-          console.log("ERRORS = " + JSON.stringify(res.body));
+          //console.log("ERRORS = " + JSON.stringify(res.body));
           
             // if(res.body.message) { AlertActions.displayMessage('warning', res.body.message); }
             // else{ AlertActions.displayMessage('error', 'Can not create task at this time. Server might be down.');}
@@ -117,7 +117,7 @@ class TodoService {
     }
 
 
-    console.log("TAGS", TodoStore.allTags[taskIndex]);
+    //console.log("TAGS", TodoStore.allTags[taskIndex]);
     request
     .post(Constants.API_TASKS_DELETE)
     .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTasks[taskIndex]._id, "tags":TodoStore.allTags[taskIndex]})
@@ -140,7 +140,7 @@ class TodoService {
       return;
     }
 
-    console.log("ID", TodoStore.allTags[list_index][tag_index]._id);
+    //console.log("ID", TodoStore.allTags[list_index][tag_index]._id);
     request
     .post(Constants.API_TAGS_DELETE)
     .send({"Authorization":LoginStore._jwt, "id":TodoStore.allTags[list_index][tag_index]._id, "list_id":list_id})

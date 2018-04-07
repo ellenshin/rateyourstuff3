@@ -24,7 +24,7 @@ class TodoListApp extends React.Component {
   componentDidMount() {
       //Add event listener for change of Todo Store
       this.todoChange = () => { 
-        console.log("TASKS IN TODO LIST CHANGED!");
+        //console.log("TASKS IN TODO LIST CHANGED!");
         this.setState( {tasks: TodoStore.allTasks}) 
       };
       TodoStore.addChangeListener(this.todoChange);    
@@ -32,7 +32,7 @@ class TodoListApp extends React.Component {
     //Fetch initial tasks and tags
     TodoService.fetchTasks();
     //TodoService.fetchStuff();
-    console.log(this.state.todos);
+    //console.log(this.state.todos);
   }
   
   componentWillUnmount() {

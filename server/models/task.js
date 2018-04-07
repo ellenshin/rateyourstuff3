@@ -24,7 +24,7 @@ module.exports.deleteTask = function(taskId, callback){
 }
 
 module.exports.toggleDone = function(taskId, callback){
-
+  
   Task.findById(taskId, function(err, doc){
     if(err){
       callback(err);

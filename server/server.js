@@ -78,11 +78,11 @@ app.get('*', function(req, res){
   return res.status(status).render('index', { markup });
 });
 
-app.post('/testpost', function(req,res){
-  res.status(200).json({
-    message: 'test response.'
-  })
-});
+// app.post('/testpost', function(req,res){
+//   res.status(200).json({
+//     message: 'test response.'
+//   })
+// });
 
 //Set routes
 app.use('/auth', auth_route);

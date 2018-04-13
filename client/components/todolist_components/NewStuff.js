@@ -126,7 +126,7 @@ class NewStuff extends React.Component {
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.onSuggestionsClearRequested= this.onSuggestionsClearRequested.bind(this)
     this.createStuff = this.createStuff.bind(this);  
-    this.scrollToBottom = this.scrollToBottom.bind(this);
+    //this.scrollToBottom = this.scrollToBottom.bind(this);
     this._onSelect = this._onSelect.bind(this);
     this.lastRequestId = null;
   }
@@ -135,15 +135,11 @@ class NewStuff extends React.Component {
     this.setState({selected: option})
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    this.scrollToBottom();
-  }
-
   onChange(event, { newValue, method }) {
     this.setState({
       value: newValue
     });
-    this.scrollToBottom();
+    
   };
   
   onSuggestionsFetchRequested({ value }) {
@@ -245,10 +241,6 @@ class NewStuff extends React.Component {
     // }, 1000);
   }
 
-  scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    //console.log("scrolled")
-  }
 
   render() {
     const { value, suggestions, isLoading } = this.state;
@@ -262,24 +254,24 @@ class NewStuff extends React.Component {
 
     return (
       <div>
-      <div className='searchbar'>
-      <Autosuggest
-        style={{float:"left"}}
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-        multiSection={true}
-        renderSectionTitle={renderSectionTitle}
-        getSectionSuggestions={getSectionSuggestions}
-        onSuggestionSelected={this.createStuff} />
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
-        </div>
-        <div style={{ float:"left", clear: "both" }}
-             ref={(el) => { this.messagesEnd = el; }}>
-        </div>
+        <div className='searchbar'>
+        <Autosuggest
+          style={{float:"left"}}
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps}
+          multiSection={true}
+          renderSectionTitle={renderSectionTitle}
+          getSectionSuggestions={getSectionSuggestions}
+          onSuggestionSelected={this.createStuff} />
+          <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+          </div>
+          <div style={{ float:"left", clear: "both" }}
+               ref={(el) => { this.messagesEnd = el; }}>
+          </div>
         </div>
     );
   }

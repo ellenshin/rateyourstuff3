@@ -13,14 +13,14 @@ class TodoList extends React.Component {
     //Set the initial state of the component
     this.state = {todos: TodoStore.allTags};
     this.deleteList = this.deleteList.bind(this);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
+    //this.scrollToBottom = this.scrollToBottom.bind(this);
     this.dataChanged = this.dataChanged.bind(this);
   }
 
-  scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    //console.log("scrolled")
-  }
+  // scrollToBottom() {
+  //   this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  //   //console.log("scrolled")
+  // }
 
   componentDidMount() {
       //Add event listener for change of Todo Store
